@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    string nome = (string)Session["nomeUsuarioLogado"];
+}
+
+<div class="jumbotron">
+    <h1>NoStop</h1>
+    <p class="lead">Sistema inovador para controle e gerenciamento de filas. Faça o Registro e Login para ter acesso aos Estabelecimentos.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Saiba Mais &raquo;</a></p>
+    <p>Bem-Vindo @nome! Faça bom proveito!</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Começe Agora</h2>
+        <p>
+            Realize o Registro e faça o login para entrar no sistema
+            e assim, terá acesso ao nosso conteúdo e estabelecimentos
+            Escolha um e entre na fila!.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Leia mais &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Inovação</h2>
+        <p>Com sistema NoStop, você tem a comodidade de entrar na fila e
+        visualizar sua posição na mesma. Assim, com um simples botão,
+        você pode entrar na fila e aguardar sua vez.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Saiba Mais &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Controle</h2>
+        <p>O seu estabelecimento será muito mais fácil controlar a fila e
+        dessa maneira, o acesso e rentabilidade com os clientes, será muito
+        mais simples.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Veja mais &raquo;</a></p>
+    </div>
+</div>
