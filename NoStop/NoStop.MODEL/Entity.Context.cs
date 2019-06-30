@@ -30,5 +30,7 @@ namespace NoStop.MODEL
         public virtual DbSet<FilaData> FilaData { get; set; }
         public virtual DbSet<Setor> Setor { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
     }
 }

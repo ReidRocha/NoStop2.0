@@ -74,7 +74,17 @@
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\RepositoryCliente.cs" />
+    <Compile Include="Repositories\RepositoryEstabelecimento.cs" />
+    <Compile Include="Repositories\RepositoryRole.cs" />
+    <Compile Include="Repositories\RepositorySetor.cs" />
+    <Compile Include="Roles.cs">
+      <DependentUpon>Entity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Setor.cs">
+      <DependentUpon>Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Status.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs">

@@ -16,6 +16,9 @@
         <AssociationConnector Association="NoStopModel.FK_FilaData_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="NoStopModel.FK_Setor_Estabelecimento" ManuallyRouted="false" />
         <AssociationConnector Association="NoStopModel.FK_FilaData_Setor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NoStopModel.Roles" Width="1.5" PointX="7.625" PointY="0.875" />
+        <EntityTypeShape EntityType="NoStopModel.Status" Width="1.5" PointX="5.375" PointY="1" />
+        <AssociationConnector Association="NoStopModel.FK_Roles_Status" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

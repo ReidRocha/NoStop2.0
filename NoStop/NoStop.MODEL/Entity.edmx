@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NoStopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="NoStopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="ID" />
@@ -34,6 +34,14 @@
           <Property Name="Data" Type="date" Nullable="false" />
           <Property Name="Atendido" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDStatus" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Setor">
           <Key>
             <PropertyRef Name="ID" />
@@ -41,6 +49,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDEstabelecimento" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -114,6 +129,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Roles_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Roles">
+              <PropertyRef Name="IDStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Setor_Estabelecimento">
           <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
           <End Role="Setor" Type="Self.Setor" Multiplicity="*" />
@@ -130,7 +157,9 @@
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estabelecimento" EntityType="Self.Estabelecimento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FilaData" EntityType="Self.FilaData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Setor" EntityType="Self.Setor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Cliente_Estabelecimento" Association="Self.FK_Cliente_Estabelecimento">
             <End Role="Estabelecimento" EntitySet="Estabelecimento" />
@@ -152,13 +181,16 @@
             <End Role="Setor" EntitySet="Setor" />
             <End Role="FilaData" EntitySet="FilaData" />
           </AssociationSet>
+          <AssociationSet Name="FK_Roles_Status" Association="Self.FK_Roles_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
           <AssociationSet Name="FK_Setor_Estabelecimento" Association="Self.FK_Setor_Estabelecimento">
             <End Role="Estabelecimento" EntitySet="Estabelecimento" />
             <End Role="Setor" EntitySet="Setor" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NoStopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -325,7 +357,42 @@
             <End Role="Setor" EntitySet="Setor" />
             <End Role="FilaData" EntitySet="FilaData" />
           </AssociationSet>
+          <EntitySet Name="Roles" EntityType="NoStopModel.Roles" />
+          <EntitySet Name="Status" EntityType="NoStopModel.Status" />
+          <AssociationSet Name="FK_Roles_Status" Association="NoStopModel.FK_Roles_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="NoStopModel.FK_Roles_Status" FromRole="Roles" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Roles" Relationship="NoStopModel.FK_Roles_Status" FromRole="Status" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_Roles_Status">
+          <End Type="NoStopModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="NoStopModel.Roles" Role="Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Roles">
+              <PropertyRef Name="IDStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -383,6 +450,23 @@
                 <ScalarProperty Name="CPF" ColumnName="CPF" />
                 <ScalarProperty Name="Telefone" ColumnName="Telefone" />
                 <ScalarProperty Name="Roles" ColumnName="Roles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="NoStopModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="IDStatus" ColumnName="IDStatus" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="NoStopModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
